@@ -1,0 +1,24 @@
+$global-primary-color: #FA8D2E;
+$global-secondary-color: #FFC983;
+$global-text-white-color: #fff;
+$global-text-color-gray: #535353;
+$full-container: 1280px;
+$container: 1232px;
+
+$font-size--large: clamp(3rem, 2.4348rem + #{2.584vw}, 4.25rem); //68-48
+$font-size--heading: clamp(1.75rem, 1.5239rem + #{1.0336vw}, 2.25rem);//36-28
+$font-size--medium: clamp(1.25rem, 1.137rem + #{0.5168vw}, 1.5rem); //24-20
+$font-size--small: 1.25rem;
+$font-size--body: 1rem;
+
+$animate-duration: 1.5s;
+$animate-delay: 0.3s;
+$animate-repeat: 1;
+
+$gap-small: 16px;
+$gap: 24px;
+
+$breakpoint-mobile: 576px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 992px;
+$breakpoint-large-desktop: 1200px;

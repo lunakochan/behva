@@ -1,0 +1,75 @@
+.single {
+    .group-content {
+        .container-group {
+            margin-block: 64px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            .meta {
+                display: flex;
+                align-items: center;
+                font-weight: 300;
+                .date,
+                .user,
+                .share {
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    &::after {
+                        content: "|";
+                        padding-inline: 8px;
+                    }
+
+                    &:last-child {
+                        &::after {
+                            content: unset;
+                        }
+                    }
+                }
+                .share-btn {
+                    all: unset;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+            .wp-post-image {
+                width: 100%;
+                height: auto;
+                border-radius: 16px;
+            }
+        }
+    }
+
+    .relate-post {
+        padding-block: 64px;
+        .heading {
+            margin-bottom: 24px;
+            text-align: center;
+            color: $global-primary-color;
+        }
+        .group-relate {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            @media( min-width: $breakpoint-desktop ) {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+        }
+        .button-icon {
+            margin-top: 24px;
+            text-align: center;
+        }
+    }
+
+    &.single-event {
+        .relate-post {
+            background-color: #FAF6FD;
+            .group-relate {
+                @media( min-width: $breakpoint-desktop ) {
+                    grid-template-columns: 1fr 1fr 1fr;
+                }
+            }
+        }
+    }
+}

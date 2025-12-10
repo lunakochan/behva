@@ -1,0 +1,135 @@
+@use 'variables' as var;
+
+.site-header {
+    margin-top: 24px;
+    width: 100%;
+    background: transparent;
+    transition: 
+        padding 0.3s ease,
+        transform 0.3s ease;
+    transform: translateY(0);
+    &.scroll {
+        // margin-top: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        // padding-block: 16px;
+        transform: translateY(-10px);
+        transition: transform 0.3s ease;
+    }
+    &.scroll-ready {
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+    }
+    .header-container {
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        margin: auto;
+        position: relative;
+        justify-content: center;
+        width: 100%;
+        padding-block: 8px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        transition: 0.3s all ease-in;
+        border-radius: 20px;
+        padding-block: 16px;
+        padding-inline: 20px;
+        @media( min-width: var.$breakpoint-desktop ) {
+            justify-content: center;
+        }
+        .main-navigation {
+            max-width: 100%;
+            width: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            .menu {
+                display: flex;
+                list-style: none;
+                gap: 32px;
+                .menu-item {
+                    a {
+                        color: var.$global-text-color-gray;
+                    }
+                }
+            }
+            @media( min-width: var.$breakpoint-desktop ) {
+                display: flex;
+            }
+        }
+        .menu-icon {
+            all: unset;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var.$global-primary-color;
+            font-size: 32px;
+            margin-left: auto;
+            @media( min-width: var.$breakpoint-desktop ) {
+                display: none;
+            }
+        }
+        .custom-logo-link {
+            max-width: 96px;
+            display: flex;
+            align-items: center;
+            img {
+                height: auto;
+                width: 100%;
+            }
+            @media( min-width: var.$breakpoint-desktop ) {
+                max-width: 96px;
+            }
+        }
+        .button-start {
+            display: none;
+            margin-left: auto;
+            @media( min-width: var.$breakpoint-desktop ) {
+                display: block;
+            }
+        }
+    }
+    #menu-mobile {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        margin-top: 24px;
+        transition:
+            max-height 0.75s ease,
+            opacity 0.65s ease;
+
+        &.active {
+            max-height: 1000px; // กำหนดตัวเลขสูงสุดตามเนื้อหา
+            opacity: 1;
+            visibility: visible;
+        }
+        @media ( min-width: var.$breakpoint-desktop ) {
+            display: none;
+        }
+        .menu-mobile-container {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            padding: 36px 24px;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 20px;
+        }
+        .menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 16px
+        }
+        .button-start.mobile {
+            margin-top: 32px;
+        }
+    }
+
+}

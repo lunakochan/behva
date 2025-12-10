@@ -49,7 +49,7 @@ function behva_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'behva' ),
+			'menu-primary' => esc_html__( 'Primary', 'behva' ),
 		)
 	);
 
@@ -76,7 +76,7 @@ function behva_setup() {
 		apply_filters(
 			'behva_custom_background_args',
 			array(
-				'default-color' => 'ffffff',
+				'default-color' => 'CBC9C6',
 				'default-image' => '',
 			)
 		)
@@ -93,12 +93,15 @@ function behva_setup() {
 	add_theme_support(
 		'custom-logo',
 		array(
-			'height'      => 250,
-			'width'       => 250,
+			'height'      => 60,
+			'width'       => 100,
 			'flex-width'  => true,
 			'flex-height' => true,
 		)
 	);
+
+	add_image_size( 'square', 768, 768, true );
+	add_image_size( 'banner-background', 1920, 9999, true );
 }
 add_action( 'after_setup_theme', 'behva_setup' );
 
@@ -110,7 +113,7 @@ add_action( 'after_setup_theme', 'behva_setup' );
  * @global int $content_width
  */
 function behva_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'behva_content_width', 640 );
+	$GLOBALS['content_width'] = apply_filters( 'behva_content_width', 1240 );
 }
 add_action( 'after_setup_theme', 'behva_content_width', 0 );
 
@@ -146,6 +149,26 @@ function behva_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+	wp_enqueue_script( 'jquery' );
+	
+	if ( is_page_template('template-home.php') ) {
+		wp_enqueue_script( 'template-home-js', get_theme_file_uri( '/assets/js/template-home.js' ), array(), filemtime( get_theme_file_path( '/assets/js/template-home.js' ) ), true );
+	}
+	wp_enqueue_style(
+        'font-awesome',
+        get_theme_file_uri( '/assets/font-awesome/css/all.min.css' ),
+        array(),
+        filemtime( get_theme_file_path( '/assets/font-awesome/css/all.min.css' ) )
+    );
+	wp_enqueue_script( 'gsap', get_theme_file_uri( '/assets/js/gsap.min.js' ), array(), filemtime( get_theme_file_path( '/assets/js/gsap.min.js' ) ), true );
+	wp_enqueue_script( 'scrolltrigger', get_theme_file_uri( '/assets/js/scrolltrigger.min.js' ), array( 'gsap' ), filemtime( get_theme_file_path( '/assets/js/scrolltrigger.min.js' ) ), true );
+	wp_enqueue_script( 'splide', get_theme_file_uri( '/assets/js/splide.min.js' ), array(), filemtime( get_theme_file_path( '/assets/js/splide.min.js' ) ), true );
+	wp_enqueue_script( 'splide-extension-auto-scroll', get_theme_file_uri( '/assets/js/splide-extension-auto-scroll.min.js' ), array( 'splide' ), filemtime( get_theme_file_path( '/assets/js/splide-extension-auto-scroll.min.js' ) ), true );
+	wp_enqueue_script( 'script', get_theme_file_uri( '/assets/js/script.js' ), array(), filemtime( get_theme_file_path( '/assets/js/script.js' ) ), true );
+
+	wp_enqueue_style( 'splide-default', get_theme_file_uri( '/assets/css/splide-default.min.css' ), array(), filemtime( get_theme_file_path( '/assets/css/splide-default.min.css' ) ), 'all' );
+	wp_enqueue_style( 'unicons-line', get_theme_file_uri( '/assets/css/unicons-line.css' ), array(), filemtime( get_theme_file_path( '/assets/css/unicons-line.css' ) ), 'all' );
+	wp_enqueue_style( 'style-theme', get_theme_file_uri( 'style-theme.css' ), array(), filemtime( get_theme_file_path( 'style-theme.css' ) ), 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'behva_scripts' );
 
@@ -176,3 +199,51 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+if ( function_exists( 'acf_add_options_page' ) ) {
+
+	acf_add_options_page(
+		array(
+			'page_title' => 'Web setting',
+			'menu_title' => 'Web setting',
+			'menu_slug'  => 'web-setting',
+			'capability' => 'edit_posts',
+			'redirect'   => false,
+			'position'   => '2',
+			'icon_url'   => 'dashicons-admin-site',
+		)
+	);
+}
+
+/**
+ * Function archive_title
+ */
+add_filter(
+	'get_the_archive_title',
+	function ( $title ) {
+		if ( is_category() ) {
+			$title = single_cat_title( '', false );
+		} elseif ( is_tag() ) {
+			$title = single_tag_title( '', false );
+		} elseif ( is_author() ) {
+			$title = '<span class="vcard">' . get_the_author() . '</span>';
+		} elseif ( is_tax() ) { //for custom post types
+			$title = sprintf( __( '%1$s' ), single_term_title( '', false ) );
+		} elseif ( is_post_type_archive() ) {
+			$title = post_type_archive_title( '', false );
+		}
+		return $title;
+	}
+);
+
+
+/**
+ * Function which set path for save acf json.
+ *
+ * @param string $path path for save acf json.
+ * @return string
+ */
+function my_acf_json_save_point( $path ) {
+	$path = get_stylesheet_directory() . '/acf-json';
+	return $path;
+}
+add_filter( 'acf/settings/save_json', 'my_acf_json_save_point' );
