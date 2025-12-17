@@ -1,0 +1,82 @@
+@use 'variables' as var;
+
+.site-footer {
+    margin-top: 24px;
+    .footer-container {
+        background-color: #fff;
+        padding: 24px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        .group-top {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            @media( min-width: 992px ) {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+        .blog-descrption {
+            font-size: var.$font-size--heading;
+            color: #535353;
+        }
+        .logo {
+            text-align: center;
+            @media( min-width: 992px ) {
+                text-align: left;
+            }
+            .custom-logo {
+                max-width: 180px;
+                height: auto;
+            }
+        }
+        .menu-menu-footer-container {
+            .menu {
+                gap: 36px;
+            }
+            @media( min-width: 992px ) {
+                margin-left: auto;
+            }
+        }
+        .group-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            grid-column: 1 / span 2;
+            padding-top: 24px;
+            border-top: 1px solid #000;
+            @media ( min-width: 992px ) {
+                flex-direction: row;
+                align-items: center;
+            }
+            .menu-menu-terms-privacy-container {
+                .menu-item {
+                    a {
+                        color: #BFBEBE
+                    }
+                }
+            }
+            .copyright {
+                color: #BFBEBE;
+                @media( min-width: 992px ) {
+                    margin-left: auto;
+                }
+            }
+        }
+       
+    }
+    .menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 16px;
+        .menu-item {
+            a {
+                color: #535353
+            }
+        }
+    }
+}

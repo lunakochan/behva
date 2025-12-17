@@ -49,7 +49,9 @@ function behva_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-primary' => esc_html__( 'Primary', 'behva' ),
+			'menu-primary'       => esc_html__( 'Primary', 'behva' ),
+			'menu-footer'        => esc_html__( 'Footer', 'behva' ),
+			'menu-terms-privacy' => esc_html__( 'Terms & Privacy', 'behva' ),
 		)
 	);
 

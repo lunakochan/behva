@@ -134,6 +134,8 @@
     }
 
     .sec_contact {
+        position: relative;
+        z-index: 1;
         .contact-container {
             display: flex;
             justify-content: center;
@@ -157,14 +159,47 @@
                 display: flex;
                 flex-direction: column;
                 gap: 64px;
+                margin-bottom: 52px;
                 @media( min-width: var.$breakpoint-desktop ) {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
                 }
                 .heading {
-                    font-size: var.$font-size--heading;
-                    font-family: 'Montserrat', sans-serif;
-                    font-weight: 400;
+                    font-weight: 300;
+                }
+                .group-description {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 24px;
+                    .button-contact {
+                        display: block;
+                    }
+                }
+            }
+            .contact-form {
+                background-color: #fff;
+                padding: 47px 24px;
+                border-radius: 20px;
+                .contact-title {
+                    font-size: 14px;
+                    color: var.$global-text-color-gray;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    margin-bottom: 24px;
+                    text-align: center;
+                }
+                .contact-description {
+                    font-size: 14px;
+                    text-align: center;
+                    max-width: 530px;
+                    margin: 0 auto 24px;
+                }
+                .contact-form-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    .frm_submit {
+                        text-align: center;
+                    }
                 }
             }
         }

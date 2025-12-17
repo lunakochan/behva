@@ -7,8 +7,8 @@
  * @package behva
  */
 
-$sec_banner = get_field( 'section_banner' );
-$sec_tab    = get_field( 'section_tab' );
+$sec_banner  = get_field( 'section_banner' );
+$sec_tab     = get_field( 'section_tab' );
 $sec_contact = get_field( 'section_contact' );
 
 get_header();

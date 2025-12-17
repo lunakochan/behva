@@ -1,25 +1,23 @@
-// window.onscroll = function() {myScroll()};
+// const header = document.querySelector('.site-header');
+// let isFixed = false;
 
-const header = document.querySelector('.site-header');
-let isFixed = false;
+// window.addEventListener('scroll', () => {
+//     if (window.scrollY > 50 && !isFixed) {
+//         header.classList.add('scroll');
 
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50 && !isFixed) {
-        header.classList.add('scroll');
+//         // หน่วงนิดนึงเพื่อให้ transform ทำงาน
+//         setTimeout(() => {
+//             header.classList.add('scroll-ready');
+//         }, 10);
 
-        // หน่วงนิดนึงเพื่อให้ transform ทำงาน
-        setTimeout(() => {
-            header.classList.add('scroll-ready');
-        }, 10);
+//         isFixed = true;
+//     }
 
-        isFixed = true;
-    }
-
-    if (window.scrollY <= 50 && isFixed) {
-        header.classList.remove('scroll', 'scroll-ready');
-        isFixed = false;
-    }
-});
+//     if (window.scrollY <= 50 && isFixed) {
+//         header.classList.remove('scroll', 'scroll-ready');
+//         isFixed = false;
+//     }
+// });
 
 const startAnimation = (entries, observer) => {
     entries.forEach(entry => {
