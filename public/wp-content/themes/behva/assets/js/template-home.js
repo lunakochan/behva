@@ -10,13 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  // --- 1. SPLIDE SETUP ---
-
   var splide = new Splide('.tab-splide', {
     type      : 'slide',
     perPage   : 1,
     perMove   : 1,
-    wheel     : false,          // ไม่ใช้ wheel ใน Splide เอง
+    wheel     : false,         
     waitForTransition: true,
     height    : '60vh',
     speed     : 700,
@@ -85,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // --- 2. GSAP: PIN เฉย ๆ ไม่จับ progress แล้ว ---
 
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
     console.warn('GSAP หรือ ScrollTrigger ยังไม่ถูกโหลด');
@@ -99,10 +96,10 @@ document.addEventListener('DOMContentLoaded', function () {
   ScrollTrigger.create({
     trigger    : secTab,
     start      : 'top -30%',
-    end        : 'bottom 30%',   // พ้นความสูงของ sec_tab ก็ปลด pin
+    end        : 'bottom 30%',   
     pin        : true,
     pinSpacing : true,
-    scrub      : false,          // ไม่ต้อง scrub แล้ว
+    scrub      : false,        
     onEnter: function () {
       sliderActive = true;
     },
@@ -117,11 +114,9 @@ document.addEventListener('DOMContentLoaded', function () {
     },
   });
 
-  // --- 3. Wheel control เฉพาะตอนถูก pin ---
-
   var isAnimating   = false;
   var lastWheelTime = 0;
-  var COOLDOWN      = 450; // ms กันรัวจน slide ข้าม
+  var COOLDOWN      = 450;
   var exitDownArmed = false;
   var exitUpArmed   = false;
 
@@ -135,7 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function handleWheel(event) {
     if (!sliderActive) {
-      // ถ้าไม่ได้อยู่ใน zone pin → ให้ scroll ปกติ
       return;
     }
 
@@ -155,19 +149,15 @@ document.addEventListener('DOMContentLoaded', function () {
     var atLast    = splide.index === splide.length - 1;
     var atFirst   = splide.index === 0;
 
-    // --- เลื่อนลง ---
     if (goingDown) {
       if (atLast) {
-        // slide สุดท้ายแล้ว
         if (!exitDownArmed) {
-          // ครั้งแรก → แค่ "จอด"
           exitDownArmed = true;
           exitUpArmed   = false;
           lastWheelTime = now;
           return;
         }
 
-        // ครั้งที่สอง → หลุดไป section ถัดไป
         exitDownArmed = false;
         sliderActive  = false;
 
@@ -182,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // ยังไม่ถึง slide สุดท้าย → ไป slide ถัดไป
       exitDownArmed = false;
       exitUpArmed   = false;
       splide.go('>');
@@ -190,19 +179,15 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // --- เลื่อนขึ้น ---
     if (!goingDown) {
       if (atFirst) {
-        // อยู่ slide แรกแล้ว
         if (!exitUpArmed) {
-          // ครั้งแรก → "จอด"
           exitUpArmed   = true;
           exitDownArmed = false;
           lastWheelTime = now;
           return;
         }
 
-        // ครั้งที่สอง → กลับไป section ก่อนหน้า
         exitUpArmed  = false;
         sliderActive = false;
 
@@ -217,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // ยังไม่ใช่ slide แรก → ย้อนกลับ slide ก่อนหน้า
       exitDownArmed = false;
       exitUpArmed   = false;
       splide.go('<');
@@ -225,7 +209,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // ดัก wheel เฉพาะบน sec_tab
   secTab.addEventListener('wheel', handleWheel, { passive: false });
 
 });
